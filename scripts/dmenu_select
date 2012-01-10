@@ -1,0 +1,17 @@
+#! /bin/dash
+
+width_height=`xwininfo -root | grep -m 1 '\-geometry' | grep -oE '[0-9]+x[0-9]+'`
+
+width=${width_height%x*}
+height=${width_height#*x}
+bar_width=$(( $width / 2 ))
+left_shift=$(( ($width - $bar_width) / 2 ))
+top_shift=$(( $height / 3 ))
+
+fn='-*-terminus-medium-r-normal-*-18-*-*-*-*-*-iso10646-*'
+nb='#333333'
+nf='#999999'
+sb='#333333'
+sf='#FFFFFF'
+
+dmenu -i -fn "$fn" -nb "$nb" -nf "$nf" -sb "$sb" -sf "$sf" -l 9 -x $left_shift -y $top_shift -w $bar_width

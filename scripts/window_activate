@@ -1,0 +1,8 @@
+#! /bin/dash
+
+class_title_wid=$(xdotool search -class . | xargs -I % dash -c 'xprop -notype -f _NET_WM_STATE 32a "\$0" -f WM_CLASS 8s " \$0" -f WM_NAME 8s " \$0" -id % _NET_WM_STATE WM_CLASS WM_NAME; echo " %"' | grep '' | grep -v '_NET_WM_STATE_SKIP_TASKBAR' | sed 's/^[^"]*//;s/WM_NAME//' | dmenu_select)
+
+if [ $? -eq 0 ]; then
+	wid=${class_title_wid##* }
+	xdotool windowactivate $wid
+fi
